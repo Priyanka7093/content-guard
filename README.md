@@ -2,12 +2,12 @@
 
 A full-stack AI-powered application for real-time multi-modal content moderation.
 
-The system provides a centralized platform to analyze text and images using Natural Language Processing and Computer Vision models, generate moderation decisions, and maintain moderation history through a microservices-based backend.
+The system provides a centralized platform to analyze text and images using Natural Language Processing and Computer Vision models, generate moderation decisions, monitor system health, and maintain moderation history through a microservices-based backend.
 
 ## Features
 
 - Real-time text toxicity detection
-- Image content moderation
+- Multi-modal image content moderation
 - General object detection using YOLOv8
 - Custom-trained weapons detection
 - NSFW image classification
@@ -18,7 +18,7 @@ The system provides a centralized platform to analyze text and images using Natu
 - AI model insights dashboard
 - Responsive React frontend
 - FastAPI microservices architecture
-- SQLite database integration
+- SQLite-based moderation logging
 - RESTful communication between frontend and backend services
 
 ## Technology Stack
@@ -36,6 +36,7 @@ The system provides a centralized platform to analyze text and images using Natu
 - Python
 - FastAPI
 - HTTPX
+- REST APIs
 
 ### AI / Machine Learning
 
@@ -83,9 +84,7 @@ content-guard/
 │
 ├── frontend/
 │   ├── public/
-│   │   ├── images/
-│   │   ├── favicon.svg
-│   │   └── icons.svg
+│   │   └── images/
 │   │
 │   ├── src/
 │   │   ├── assets/
@@ -124,139 +123,183 @@ content-guard/
 ├── test_image_model.py
 ├── test_text_model.py
 └── .gitignore
+```
 
-Application Architecture
+## Application Architecture
 
-The application follows a microservices-based architecture with an API Gateway connecting the frontend to independent moderation, decision, and logging services.
+Content Guard follows a microservices-based architecture where the React frontend communicates with an API Gateway, which coordinates independent text moderation, image moderation, decision, and logging services.
 
-Architecture Flow
-                    React + Vite
-                         |
-                         | HTTP
-                         v
-                 API Gateway :8000
-                    /          \
-                   /            \
-                  v              v
-       Text Moderation      Image Moderation
-           :8001                :8002
-             |                    |
-        Toxic-BERT        ┌───────┼────────┐
-                          |       |        |
-                        YOLO   Weapons   NSFW
-                          |       |        |
-                          └───────┼────────┘
-                                  |
-                    Moderation Decision :8003
-                                  |
-                                  v
-                       Logging Service :8004
-                                  |
-                                  v
-                              SQLite
-Backend Setup
-1. Clone the Repository
+## Backend Setup
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Priyanka7093/content-guard.git
-
-Navigate to the project directory:
-
 cd content-guard
-2. Create a Python Virtual Environment
+```
+
+### 2. Create a Python Virtual Environment
+
+```bash
 python -m venv venv
+```
 
 Activate the virtual environment on Windows:
 
+```bash
 venv\Scripts\Activate.ps1
-3. Install Backend Dependencies
+```
+
+### 3. Install Backend Dependencies
+
+```bash
 pip install fastapi uvicorn httpx python-multipart
 pip install ultralytics transformers torch torchvision
-4. Run the Backend Services
+```
+
+### 4. Run the Backend Services
 
 Start each service from its respective directory.
 
-API Gateway
+#### API Gateway
+
+```bash
 cd backend/api_gateway
 uvicorn main:app --reload --port 8000
-Text Moderation Service
+```
+
+#### Text Moderation Service
+
+```bash
 cd backend/text_moderation_service
 uvicorn main:app --reload --port 8001
-Image Moderation Service
+```
+
+#### Image Moderation Service
+
+```bash
 cd backend/image_moderation_service
 uvicorn main:app --reload --port 8002
-Moderation Decision Service
+```
+
+#### Moderation Decision Service
+
+```bash
 cd backend/moderation_decision_service
 uvicorn main:app --reload --port 8003
-Logging Service
+```
+
+#### Logging Service
+
+```bash
 cd backend/logging_service
 uvicorn main:app --reload --port 8004
+```
 
-Each backend service provides a health endpoint for service monitoring.
-
-Frontend Setup
+## Frontend Setup
 
 Navigate to the frontend directory:
 
+```bash
 cd frontend
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 
 Start the React development server:
 
+```bash
 npm run dev
+```
 
-Then open the local URL displayed by Vite in the terminal.
+Open the local URL displayed by Vite in the terminal.
 
-Custom Model Training
+## Custom Model Training
 
-The project includes a custom-trained YOLOv8 weapons detection model.
+Content Guard includes a custom-trained YOLOv8 weapons detection model.
 
-The model was trained using a labeled dataset containing 671 images and 7 classes:
+The model was trained using a labeled dataset containing the following classes:
 
-Handgun
-Knife
-Missile
-Rifle
-Shotgun
-Sword
-Tank
+- Handgun
+- Knife
+- Missile
+- Rifle
+- Shotgun
+- Sword
+- Tank
 
-The model was trained for 50 epochs using a Google Colab GPU.
+The training workflow was developed using Google Colab with GPU acceleration.
 
-The complete training notebook is included in:
+The complete training notebook is included in the repository:
 
+```text
 ml/weapons_detection/training/weapons_detector_training.ipynb
-Project Status
+```
 
-Fully working end-to-end
+The dataset configuration used for the training workflow is also included in the project.
 
-The backend microservices, AI moderation pipeline, React frontend, moderation logging, dashboard, and moderation history are integrated and tested.
+## Project Status
 
-Technologies
+**Fully working end-to-end**
 
-React Vite JavaScript Python FastAPI HTTPX Toxic-BERT YOLOv8 Transformers SQLite Google Colab Roboflow Git GitHub
+Content Guard integrates the React frontend, FastAPI microservices, AI moderation pipeline, moderation decision engine, logging system, dashboards, system health monitoring, and moderation history into a unified application.
 
-Application Screenshots
-Home Page
+## Technologies
 
-Dashboard
+`React` `Vite` `JavaScript` `Python` `FastAPI` `HTTPX` `Toxic-BERT` `YOLOv8` `Transformers` `SQLite` `Google Colab` `Roboflow` `Git` `GitHub`
 
-Text Moderation
+---
 
-Image Moderation
+## Application Screenshots
 
-Model Insights
+### Home Page
 
-System Health
+![Home Page](screenshots/home.png)
 
-Moderation History
+### Dashboard
 
-About
+![Dashboard](screenshots/dashboard.png)
 
-Application Architecture
+![Dashboard Overview](screenshots/dashboard2.png)
+
+### Text Moderation
+
+![Text Moderation](screenshots/text_moderation.png)
+
+![Text Moderation Result](screenshots/text_moderation2.png)
+
+### Image Moderation
+
+![Image Moderation](screenshots/image_moderation.png)
+
+![Image Moderation Result](screenshots/image_moderaton2.png)
+
+### Model Insights
+
+![Model Insights](screenshots/model_insights.png)
+
+### System Health
+
+![System Health](screenshots/system_health.png)
+
+### Moderation History
+
+![Moderation History](screenshots/history.png)
+
+### About
+
+![About Page](screenshots/about_1.png)
+
+![About Page - Additional View](screenshots/about_2.png)
+
+### Application Architecture
+
+![Application Architecture](screenshots/architecture.png)
+
+---
 
 If you find this project useful, consider giving it a star.
-
-
-
