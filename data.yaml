@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 7
+names: ['Handgun', 'Knife', 'Missile', 'Rifle', 'Shotgun', 'Sword', 'Tank']
+
+roboflow:
+  workspace: cherukuris-workspace-nni9f
+  project: weapon-detection-using-yolov8-kasvc
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/cherukuris-workspace-nni9f/weapon-detection-using-yolov8-kasvc/dataset/1

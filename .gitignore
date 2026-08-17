@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# ML model weights
+*.pt
+*.pth
+*.onnx
+*.h5
+*.keras
+
+# Runtime uploads and temporary files
+uploaded_images/
+temp_uploads/
+temp_*.png
+temp_*.jpg
+temp_*.jpeg
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Python testing/cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Training dataset
+train/
+valid/
+test/
+
+# Local test images
+bus.jpg
