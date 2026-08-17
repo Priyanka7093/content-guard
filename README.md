@@ -296,10 +296,6 @@ Content Guard integrates the React frontend, FastAPI microservices, AI moderatio
 
 ![About Page - Additional View](screenshots/about_2.png)
 
-### Application Architecture
-
-![Application Architecture](screenshots/architecture.png)
-
 ---
 
 If you find this project useful, consider giving it a star.
